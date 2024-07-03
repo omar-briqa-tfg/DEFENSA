@@ -35,3 +35,20 @@
         \end{itemize}
     \end{itemize}
 \end{frame}
+
+
+\begin{frame}{Disseny del processament logs}
+
+    \begin{figure}
+        \includegraphics[width=\textwidth]{figures/log-processing}\label{fig:log-processing}
+    \end{figure}
+
+    \begin{itemize}[<+- | alert@+>]
+        \item Tres components.
+        \begin{itemize}[<+- | alert@+>]
+            \item \texttt{Filtre} \(\rightarrow\) Filtra cada \textit{log} mitjançant un criteri específic.
+            \item \texttt{Transformació} \(\rightarrow\) Modifica el format del \textit{log} per afegir o treure camps.
+            \item \texttt{Bolcat} \(\rightarrow\) Adapta el format i envia el \textit{log} a la base de dades.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
