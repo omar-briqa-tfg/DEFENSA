@@ -68,9 +68,23 @@
         \begin{itemize}[<+- | alert@+>]
             \item Dublin Core + qualificador.
         \end{itemize}
-        \item Exemple: autor principal d'un recurs
+        \item Exemple: autor principal d'un recurs.
         \begin{itemize}[<+- | alert@+>]
             \item \texttt{schema.element.qualifier} \(\rightarrow\) \texttt{dc.contributor.author}
         \end{itemize}
     \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Descàrrega de les metadades}
+
+    \begin{figure}
+        \includegraphics[width=\textwidth]{figures/metadata-processing}\label{fig:metadata-processing}
+    \end{figure}
+
+    \begin{itemize}[<+- | alert@+>]
+        \item Utilitzarem el protocol OAI-PMH (Open Archive Initiative-Protocol for Metadata Harvesting).
+        \item El servidor que emmagtzema aquestes metadades implementa un mecansime de control de flux basat en el \textit{resumptionToken}.
+    \end{itemize}
+
 \end{frame}
