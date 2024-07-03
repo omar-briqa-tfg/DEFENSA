@@ -1,11 +1,271 @@
 \section{Emmagatzematge de les dades}\label{sec:data-storing}
 
-\begin{frame}{Line plots}
+\begin{frame}{Format dels \textit{logs}}
+    \begin{itemize}
+        \item \texttt{ip\_address}
+        \item \texttt{method}
+        \item \texttt{time}
+        \item \texttt{request}
+        \begin{itemize}
+            \item \texttt{method}
+            \item \texttt{resource}
+            \item \texttt{version}
+            \item \texttt{status\_code}
+            \item \texttt{response\_size}
+        \end{itemize}
+        \item \texttt{referer}
+        \item \texttt{user\_agent}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Base de dades pels logs}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Característiques:
+        \begin{itemize}
+            \item Base de dades de codi obert.
+            \item Enfocada a registres d'accés.
+            \item Ben documentada, actualitzada i mantinguda per una comunitat activa d'usuaris.
+            \item Capacitat per processar grans quantitats de dades.
+            \item Capacitat d'allotjar la nostra base de dades localment al nostre servidor de treball.
+        \end{itemize}
+        \item Hem considerat diverser opcions: Loki, Elastic, SOLR, InfluxDB, etc.
+        \item Decisió final: InfluxDB.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Paràmetres adicionals d'InfluxDB}
+    \begin{itemize}%[<+- | alert@+>]
+        \item \texttt{tag set}: conjunt de parelles clau-valor \textbf{indexades}.
+        \begin{itemize}
+            \item \textbf{content}: format del contingut, pot ser:
+            \begin{itemize}
+                \item \texttt{ok}: el format del \textit{log} és l'esperat.
+                \item \texttt{diferent}: el format del \textit{log} no és l'esperat, però s'ha pogut tractar.
+                \item \texttt{error}: error de processament.
+            \end{itemize}
+            \item \textbf{method}: mètode HTTP present al \textit{log}.
+            \item \textbf{status\_code}: codi d'estat de la resposta de la petició d'HTTP.
+            \item \textbf{type}: tipus de \textit{log}, pot ser:
+            \begin{itemize}
+                \item \texttt{cerca}: cerca a la plataforma d'UPCommons.
+                \item \texttt{recurs}: accés a un recurs d'UPCommons.
+                \item \texttt{altres}: altres tipus de \textit{log}.
+            \end{itemize}
+        \end{itemize}
+        \item \texttt{field set}: conjunt de parelles clau-valor \textbf{no indexades}.
+        \begin{itemize}
+            \item \textbf{log}: registre complet d'UPCommons.
+            \item \textbf{recurs}: identificador handle, en cas que es tracti d'un accés a un recurs.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Resultat de l'abocament dels logs I}
+    \begin{table}[!t]
+        \caption{Resultat de l'abocament dels logs}\label{tab:table1}
+        \centering
+        \begin{tabular}{@{} lr @{}}
+            \toprule
+            \textbf{2006-2023} & Total\\
+            \midrule
+            Nº total de \textit{logs}       & 1.922.392.760\\
+            Accés a recursos UPCommons      & 1.208.133.268\\
+            Cerques a UPCommons             & 179.937.769\\
+            Accés a recursos web descartats & 430.789.238\\
+            Altres tipus de \textit{logs}   & 107.198.724\\
+            Errors de processament          & 552\\
+            Duració (minuts)                & 1.977,13\\
+            \bottomrule
+        \end{tabular}
+    \end{table}
+\end{frame}
+
+\begin{frame}{Resultat de l'abocament dels logs II}
+
     \begin{figure}
         \begin{tikzpicture}
-            \begin{axis}[mlineplot,width=0.9\textwidth,height=6cm]
-                \addplot {sin(deg(x))};
+            \begin{axis}[
+                mlineplot,
+                width=\textwidth,
+                height=0.7\textheight,
+                ylabel=Logs,
+                xtick={2006, 2008, 2010, 2012, 2014, 2016, 2018, 2020, 2022},
+                xticklabel style={/pgf/number format/1000 sep=},
+                yticklabel style={/pgf/number format/fixed,/pgf/number format/precision=1},
+                legend style={at={(0.5,-0.2)}, anchor=north, legend columns=2, /tikz/every even column/.append style={column sep=0.5cm}}
+            ]
+                \addplot coordinates {
+                    (2006, 1553768)
+                    (2007, 14970518)
+                    (2008, 30747039)
+                    (2009, 37399831)
+                    (2010, 76099876)
+                    (2011, 109822586)
+                    (2012, 109646515)
+                    (2013, 70230167)
+                    (2014, 68059608)
+                    (2015, 146599579)
+                    (2016, 139559925)
+                    (2017, 133645398)
+                    (2018, 140353396)
+                    (2019, 127218126)
+                    (2020, 166038130)
+                    (2021, 192986484)
+                    (2022, 189863676)
+                    (2023, 167515925)
+                };
+                \addlegendentry{Nº total de \textit{logs}}
+                \addplot coordinates {
+                    (2006, 239410)
+                    (2007, 3039294)
+                    (2008, 8563620)
+                    (2009, 17399497)
+                    (2010, 44754685)
+                    (2011, 78153547)
+                    (2012, 80527672)
+                    (2013, 33835954)
+                    (2014, 28482567)
+                    (2015, 97702657)
+                    (2016, 95919593)
+                    (2017, 80272838)
+                    (2018, 90823546)
+                    (2019, 83529395)
+                    (2020, 99891136)
+                    (2021, 124302571)
+                    (2022, 126879940)
+                    (2023, 113815346)
+                };
+                \addlegendentry{Recursos d'UPCommons}
+                \addplot coordinates {
+                    (2006, 584614)
+                    (2007, 2043778)
+                    (2008, 7421858)
+                    (2009, 3987884)
+                    (2010, 12385336)
+                    (2011, 12493351)
+                    (2012, 11728372)
+                    (2013, 16093356)
+                    (2014, 14118753)
+                    (2015, 16117702)
+                    (2016, 11252974)
+                    (2017, 14075887)
+                    (2018, 12055214)
+                    (2019, 6815726)
+                    (2020, 11351531)
+                    (2021, 10237352)
+                    (2022, 10820565)
+                    (2023, 6353516)
+                };
+                \addlegendentry{Cerques a UPCommons}
+                \addplot coordinates {
+                    (2006, 325932)
+                    (2007, 7997613)
+                    (2008, 10402957)
+                    (2009, 11133194)
+                    (2010, 9946743)
+                    (2011, 11428684)
+                    (2012, 13582288)
+                    (2013, 17432325)
+                    (2014, 21320545)
+                    (2015, 24590560)
+                    (2016, 24606115)
+                    (2017, 28598003)
+                    (2018, 32576258)
+                    (2019, 32556241)
+                    (2020, 48773842)
+                    (2021, 51119990)
+                    (2022, 48192917)
+                    (2023, 36205031)
+                };
+                \addlegendentry{Recursos web descartats}
             \end{axis}
-        \end{tikzpicture}\label{fig:figure}
+        \end{tikzpicture}\label{fig:log-push-results}
     \end{figure}
+
+\end{frame}
+
+
+\begin{frame}{Resultat de l'abocament dels logs III}
+
+    \begin{figure}
+        \begin{tikzpicture}
+            \begin{axis}[
+                mlineplot,
+                width=\textwidth,
+                height=0.7\textheight,
+                ylabel=Minuts,
+                xtick={2006, 2008, 2010, 2012, 2014, 2016, 2018, 2020, 2022},
+                xticklabel style={/pgf/number format/1000 sep=},
+                yticklabel style={/pgf/number format/fixed,/pgf/number format/precision=1},
+                legend style={at={(0.5,-0.2)}, anchor=north, legend columns=2, /tikz/every even column/.append style={column sep=0.5cm}}
+            ]
+                \addplot coordinates {
+                    (2006, 1.6158425967809)
+                    (2007, 11.2992274621667)
+                    (2008, 28.9930860479672)
+                    (2009, 38.2631061474481)
+                    (2010, 88.525434136391)
+                    (2011, 123.040361817678)
+                    (2012, 121.413944741090)
+                    (2013, 70.0155762513478)
+                    (2014, 63.0623456716536)
+                    (2015, 160.5436228156080)
+                    (2016, 150.4153102318440)
+                    (2017, 134.3766959190370)
+                    (2018, 139.3660171588260)
+                    (2019, 126.8452290733650)
+                    (2020, 159.0830255985260)
+                    (2021, 189.5334932247790)
+                    (2022, 194.7787342015900)
+                    (2023, 175.9636698087050)
+                };
+                \addlegendentry{Durada de l'abocament}
+            \end{axis}
+        \end{tikzpicture}\label{fig:log-push-time}
+
+    \end{figure}
+
+\end{frame}
+
+\begin{frame}{Base de dades per les metadades}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Característiques:
+        \begin{itemize}
+            \item La quantitat d’aquestes és de quatre ordres de magnitud inferior que la dels \textit{logs}.
+            \item Els requisits no són tan estrictes
+            \item Flexibilitat del model de dades
+        \end{itemize}
+        \item Decisió final: MongoDB.
+        \item Hem fet primer l'abocament al servidor de treball local, després a la base de dades.
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Resultat de l'abocament de les metadades}
+    \begin{table}[!t]
+        \caption{Resultat de l'abocament de les metadades\label{tab:table2}}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            MongoDB & Nº total de metadades & Duració (segons)\\
+            \hline
+            \textbf{Total} & 242.555 & 38,2050559520721\\
+            \hline
+        \end{tabular}
+    \end{table}
+
+    \begin{table}[!t]
+        \caption{Resultat de l'abocament de les metadades\label{tab:table3}}
+        \centering
+        \begin{tabular}{|c|c|c|}
+            \hline
+            Servidor de treball & Nº total de metadades & Duració (minuts)\\
+            \hline
+            \textbf{Total} & 242.555 & 20,95360236565\\
+            \hline
+        \end{tabular}
+    \end{table}
 \end{frame}
