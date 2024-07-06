@@ -38,8 +38,21 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{InfluxDB}
 
-\begin{frame}{Paràmetres adicionals d'InfluxDB}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Base de dades de codi obert compatible per diferents plataformes.
+        \item És una eina ben documentada, mantingut activament i de forma actual.
+        \item Integració per defecte amb Grafana per poder visualitzar els \textit{logs}.
+        \item Diverses llibreries ja implementades per enviar \textit{logs} a la base de dades.
+        \begin{itemize}
+            \item En el nostre cas emprar \textit{influxdb-client} pel llenguatge \textit{Python}.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Paràmetres addicionals d'InfluxDB}
     \begin{itemize}%[<+- | alert@+>]
         \item \texttt{tag set}: conjunt de parelles clau-valor \textbf{indexades}.
         \begin{itemize}
