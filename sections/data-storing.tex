@@ -251,11 +251,16 @@
     \begin{itemize}%[<+- | alert@+>]
         \item Característiques:
         \begin{itemize}
-            \item La quantitat d’aquestes és de quatre ordres de magnitud inferior que la dels \textit{logs}.
+            \item Quatre ordres de magnitud inferior que la dels \textit{logs}.
             \item Els requisits no són tan estrictes
             \item Flexibilitat del model de dades
         \end{itemize}
         \item Decisió final: MongoDB.
+        \begin{itemize}
+            \item Base de dades no relacional de codi obert, orientada a documents.
+            \item Com alguns camps no són únics, necessitem un gestor que ens ofereixi flexibilitat al seu esquema de dades.
+            \item Com el servidor OAI retorna les dades en format XML, la conversió a un document JSON és quasi trivial.
+        \end{itemize}
         \item Hem fet primer l'abocament al servidor de treball local, després a la base de dades.
     \end{itemize}
 \end{frame}
