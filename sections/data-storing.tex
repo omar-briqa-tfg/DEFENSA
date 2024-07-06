@@ -1,21 +1,25 @@
 \section{Emmagatzematge de les dades}\label{sec:data-storing}
 
 \begin{frame}{Format dels \textit{logs}}
+
     \begin{itemize}
-        \item \texttt{ip\_address}
-        \item \texttt{method}
-        \item \texttt{time}
-        \item \texttt{request}
+        \item Aquests són els camps principals d'interés que obtenim directament dels \textit{logs}.
+        \item El pas dels anys (i el canvi de les versions de DSpace) no han fet que canviï gaire el format.
         \begin{itemize}
-            \item \texttt{method}
-            \item \texttt{resource}
-            \item \texttt{version}
-            \item \texttt{status\_code}
-            \item \texttt{response\_size}
+            \item \texttt{ip\_address}
+            \item \texttt{time}
+            \item \texttt{request}
+            \begin{itemize}
+                \item \texttt{method}
+                \item \texttt{resource}
+                \item \texttt{version}
+                \item \texttt{status\_code}
+                \item \texttt{response\_size}
+            \end{itemize}
+            \item \texttt{referer}
+            \item \texttt{user\_agent}
         \end{itemize}
-        \item \texttt{referer}
-        \item \texttt{user\_agent}
-    \end{itemize}
+    \end {itemize}
 \end{frame}
 
 
