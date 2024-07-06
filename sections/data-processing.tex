@@ -20,8 +20,7 @@
 
 \end{frame}
 
-
-\begin{frame}{Filtratge dels \textit{logs}}
+\begin{frame}{Filtratge dels \textit{logs} I}
     \begin{itemize}%[<+- | alert@+>]
         \item Durant el processament hem trobat diverses casuístiques que s'han de tractar detalladament.
         \begin{itemize}%[<+- | alert@+>]
@@ -37,6 +36,47 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Accés a recursos web}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Aquests casos els descartem.
+    \end{itemize}
+
+    \begin{figure}[htbp]
+        \centerline{\includegraphics[width=\textwidth]{figures/log-web-resource}}
+        \label{fig:log-web-resource}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Repeticions}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Accessos ``repetits'' al mateix recurs.
+    \end{itemize}
+    \begin{figure}[htbp]
+        \centerline{\includegraphics[width=\textwidth]{figures/log-repetitions}}
+        \label{fig:log-repetitions}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Cerques}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Aquests casos els marquem com a cerques.
+    \end{itemize}
+    \begin{figure}[htbp]
+        \centerline{\includegraphics[width=\textwidth]{figures/log-search}}
+        \label{fig:log-search}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Errors de processament}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Aquells que segueixin un paradigma, manipularem el registre afectat per homogeneïtzar el conjunt dels logs.
+        \item Els errors que no hem pogut adaptar-los s'han descartat.
+    \end{itemize}
+    \begin{figure}[htbp]
+        \centerline{\includegraphics[width=\textwidth]{figures/log-error}}
+        \label{fig:log-error}
+    \end{figure}
+\end{frame}
 
 \begin{frame}{Disseny del processament dels logs}
 
