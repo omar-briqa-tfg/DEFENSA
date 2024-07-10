@@ -4,13 +4,13 @@
 
 \begin{figure}
     \includegraphics[width=\textwidth]{figures/example-log}
-    \caption{Exemple d'un \textit{log}\label{fig:log-example}}
+    \label{fig:log-example}
 \end{figure}
 
 \begin{itemize}%[<+- | alert@+>]
     \item Informació de la petició HTTP.
     \begin{itemize}%[<+- | alert@+>]
-        \item Adreça IP
+        \item Adreça IP: informació \textbf{personal}, s'ha hagut de passar per un procés d'anonimització.
         \item Data i hora
         \item Informació de la petició HTTP
         \item Referent
@@ -20,8 +20,7 @@
 
 \end{frame}
 
-
-\begin{frame}{Filtratge dels \textit{logs}}
+\begin{frame}{Filtratge dels \textit{logs} I}
     \begin{itemize}%[<+- | alert@+>]
         \item Durant el processament hem trobat diverses casuístiques que s'han de tractar detalladament.
         \begin{itemize}%[<+- | alert@+>]
@@ -37,12 +36,53 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{Accés a recursos web}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Aquests casos els descartem.
+    \end{itemize}
+
+    \begin{figure}[htbp]
+        \centerline{\includegraphics[width=\textwidth]{figures/log-web-resource}}
+        \label{fig:log-web-resource}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Repeticions}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Accessos ``repetits'' al mateix recurs.
+    \end{itemize}
+    \begin{figure}[htbp]
+        \centerline{\includegraphics[width=\textwidth]{figures/log-repetitions}}
+        \label{fig:log-repetitions}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Cerques}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Aquests casos els marquem com a cerques.
+    \end{itemize}
+    \begin{figure}[htbp]
+        \centerline{\includegraphics[width=\textwidth]{figures/log-search}}
+        \label{fig:log-search}
+    \end{figure}
+\end{frame}
+
+\begin{frame}{Errors de processament}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Si l'alteració del format es menor, adaptarem el registre per homogeneïtzar el conjunt dels \textit{logs}.
+        \item Els errors que no hem pogut adaptar-los s'han descartat.
+    \end{itemize}
+    \begin{figure}[htbp]
+        \centerline{\includegraphics[width=\textwidth]{figures/log-error}}
+        \label{fig:log-error}
+    \end{figure}
+\end{frame}
 
 \begin{frame}{Disseny del processament dels logs}
 
     \begin{figure}
         \includegraphics[width=\textwidth]{figures/log-processing}
-        \caption{Processament dels \textit{logs}}\label{fig:log-processing}
+        \label{fig:log-processing}
     \end{figure}
 
     \begin{itemize}%[<+- | alert@+>]
@@ -57,10 +97,12 @@
 
 
 \begin{frame}{Implementació del processament}
-    \begin{figure}
-        \includegraphics[width=1\textwidth]{figures/log-processing-workflow}
-        \caption{Implementació del processament}\label{fig:log-processing-workflow}
-    \end{figure}
+    \vfill
+    \noindent
+    \begin{adjustbox}{max size={1.175\textwidth}{\textheight},center}
+        \includegraphics{figures/log-processing-workflow}
+    \end{adjustbox}
+    \vfill
 \end{frame}
 
 
@@ -83,7 +125,7 @@
 
     \begin{figure}
         \includegraphics[width=\textwidth]{figures/metadata-processing}
-        \caption{Descàrrega de les metadades}\label{fig:metadata-processing}
+        \label{fig:metadata-processing}
     \end{figure}
 
     \begin{itemize}%[<+- | alert@+>]

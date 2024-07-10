@@ -1,21 +1,25 @@
 \section{Emmagatzematge de les dades}\label{sec:data-storing}
 
 \begin{frame}{Format dels \textit{logs}}
+
     \begin{itemize}
-        \item \texttt{ip\_address}
-        \item \texttt{method}
-        \item \texttt{time}
-        \item \texttt{request}
+        \item Aquests són els camps principals d'interés que obtenim directament dels \textit{logs}.
+        \item El pas dels anys (i el canvi de les versions de DSpace) no han fet que canviï gaire el format.
         \begin{itemize}
-            \item \texttt{method}
-            \item \texttt{resource}
-            \item \texttt{version}
-            \item \texttt{status\_code}
-            \item \texttt{response\_size}
+            \item \texttt{ip\_address}
+            \item \texttt{time}
+            \item \texttt{request}
+            \begin{itemize}
+                \item \texttt{method}
+                \item \texttt{resource}
+                \item \texttt{version}
+                \item \texttt{status\_code}
+                \item \texttt{response\_size}
+            \end{itemize}
+            \item \texttt{referer}
+            \item \texttt{user\_agent}
         \end{itemize}
-        \item \texttt{referer}
-        \item \texttt{user\_agent}
-    \end{itemize}
+    \end {itemize}
 \end{frame}
 
 
@@ -34,8 +38,21 @@
     \end{itemize}
 \end{frame}
 
+\begin{frame}{InfluxDB}
 
-\begin{frame}{Paràmetres adicionals d'InfluxDB}
+    \begin{itemize}%[<+- | alert@+>]
+        \item Base de dades de codi obert compatible per diferents plataformes.
+        \item És una eina ben documentada, mantingut activament i de forma actual.
+        \item Integració per defecte amb Grafana per poder visualitzar els \textit{logs}.
+        \item Diverses llibreries ja implementades per enviar \textit{logs} a la base de dades.
+        \begin{itemize}
+            \item En el nostre cas emprar \textit{influxdb-client} pel llenguatge \textit{Python}.
+        \end{itemize}
+    \end{itemize}
+\end{frame}
+
+
+\begin{frame}{Paràmetres addicionals d'InfluxDB}
     \begin{itemize}%[<+- | alert@+>]
         \item \texttt{tag set}: conjunt de parelles clau-valor \textbf{indexades}.
         \begin{itemize}
@@ -65,7 +82,7 @@
 
 \begin{frame}{Resultat de l'abocament dels logs I}
     \begin{table}[!t]
-        \caption{Resultat de l'abocament dels logs}\label{tab:table1}
+        \label{tab:table1}
         \centering
         \begin{tabular}{@{} lr @{}}
             \toprule
@@ -234,11 +251,16 @@
     \begin{itemize}%[<+- | alert@+>]
         \item Característiques:
         \begin{itemize}
-            \item La quantitat d’aquestes és de quatre ordres de magnitud inferior que la dels \textit{logs}.
+            \item Quatre ordres de magnitud inferior que la dels \textit{logs}.
             \item Els requisits no són tan estrictes
             \item Flexibilitat del model de dades
         \end{itemize}
         \item Decisió final: MongoDB.
+        \begin{itemize}
+            \item Base de dades no relacional de codi obert, orientada a documents.
+            \item Com alguns camps no són únics, necessitem un gestor que ens ofereixi flexibilitat al seu esquema de dades.
+            \item Com el servidor OAI retorna les dades en format XML, la conversió a un document JSON és quasi trivial.
+        \end{itemize}
         \item Hem fet primer l'abocament al servidor de treball local, després a la base de dades.
     \end{itemize}
 \end{frame}
@@ -246,7 +268,7 @@
 
 \begin{frame}{Resultat de l'abocament de les metadades}
     \begin{table}[!t]
-        \caption{Resultat de l'abocament de les metadades\label{tab:table2}}
+        \label{tab:table2}
         \centering
         \begin{tabular}{|c|c|c|}
             \hline
@@ -258,7 +280,7 @@
     \end{table}
 
     \begin{table}[!t]
-        \caption{Resultat de l'abocament de les metadades\label{tab:table3}}
+        \label{tab:table3}
         \centering
         \begin{tabular}{|c|c|c|}
             \hline
